@@ -44,7 +44,7 @@ eSIM 공급사(Airalo 등)와 결제사(토스페이먼츠)는 바뀔 수 있고
 | 인증 | Spring Security + JWT (Access Token) | 웹과 나중의 앱이 같은 API를 씀 |
 | 결제 | 토스페이먼츠 결제위젯 (테스트 모드) | 국내 결제, 테스트 키 무료 |
 | eSIM 공급 | `EsimProvider` 인터페이스 + 가짜 구현 | 실제 공급사 계약 전에도 개발 가능 |
-| 프론트엔드 | React (Vite로 프로젝트 생성) | 진행님이 프론트 경험이 있음. 백엔드와 분리된 `frontend/` 폴더에서 REST API를 호출 |
+| 프론트엔드 | React + TypeScript (Vite의 `react-ts` 템플릿) | 진행님이 프론트 경험이 있음. 백엔드와 분리된 `frontend/` 폴더에서 REST API를 호출. API 응답 형태를 타입으로 적어 백엔드와 어긋나는 실수를 미리 잡음 |
 | 테스트 | JUnit 5, MockMvc, AssertJ | Spring Boot 기본 포함 |
 
 ## API Conventions
@@ -56,6 +56,7 @@ eSIM 공급사(Airalo 등)와 결제사(토스페이먼츠)는 바뀔 수 있고
 - 요청 DTO와 응답 DTO는 Entity와 분리한다. Entity를 그대로 응답하지 않는다.
 - 돈은 원 단위 정수(`long`)로 다룬다. `double`을 쓰지 않는다.
 - 시간은 서버에서 UTC로 저장하고, 화면에서 한국 시간으로 보여준다.
+- 프론트엔드는 `contracts/api.md`의 요청·응답을 TypeScript 타입으로 옮겨 적고, `any`를 쓰지 않는다. `null`일 수 있는 필드는 타입에 `| null`로 표시한다.
 - 프론트엔드(React)와 백엔드는 주소가 다르므로 백엔드에 CORS 설정을 둔다. 허용 주소는 로컬 개발 주소(`http://localhost:5173`)부터 시작하고 설정 값으로 관리한다.
 
 ## Development Workflow
@@ -72,4 +73,4 @@ eSIM 공급사(Airalo 등)와 결제사(토스페이먼츠)는 바뀔 수 있고
 - 이 헌법을 바꾸려면 팀원 과반이 동의하고, 아래 버전과 날짜를 갱신한다.
 - 리뷰할 때 원칙 I~V를 지켰는지 확인한다.
 
-**Version**: 1.2.0 | **Ratified**: 2026-11-20 | **Last Amended**: 2026-11-20
+**Version**: 1.3.0 | **Ratified**: 2026-11-20 | **Last Amended**: 2026-11-20

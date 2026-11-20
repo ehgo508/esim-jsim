@@ -13,7 +13,7 @@ description: "회원 가입과 로그인 작업 목록"
 - [ ] T001 start.spring.io에서 프로젝트 생성 (Java 21, Gradle, Spring Web, Validation, Data JPA, Security, MySQL Driver, H2, Lombok 선택) → `backend/`
 - [ ] T002 `docker-compose.yml`로 로컬 MySQL 띄우기, `application.yml`과 `application-local.yml` 분리 (`application-local.yml`은 `.gitignore`에 추가)
 - [ ] T003 [P] GitHub 저장소에서 Dependabot 알림 켜기
-- [ ] T003-1 [P] `frontend/`에 React 프로젝트 생성 (Vite), 백엔드 `SecurityConfig`에 CORS 허용 주소 `http://localhost:5173` 추가
+- [ ] T003-1 [P] `frontend/`에 React + TypeScript 프로젝트 생성 (Vite `react-ts` 템플릿), 백엔드 `SecurityConfig`에 CORS 허용 주소 `http://localhost:5173` 추가
 - [ ] T004 애플리케이션 실행 후 임시 컨트롤러(`GET /hello`)로 서버가 뜨는지 확인
 
 ## Phase 2: Foundational (모든 기능이 쓰는 공통 코드)
@@ -52,6 +52,7 @@ description: "회원 가입과 로그인 작업 목록"
 
 ## Phase 5-1: 프론트 연결
 
+- [ ] T024-0 공통 응답 형식(`success`, `data`, `error`)과 001의 응답 DTO를 TypeScript 타입으로 작성
 - [ ] T024-1 가입, 로그인 화면 만들기. 로그인 후 받은 토큰을 보관하고 API 요청 헤더에 붙이는 공통 함수 만들기
 - [ ] T024-2 로그인 상태에서 내 정보가 화면에 보이는지 확인
 
