@@ -39,7 +39,7 @@ MVP 이후: 출국일 알림, 데이터 충전, 실제 공급사 연동, 모바�
 | 인증 | Spring Security, JWT |
 | 결제 | 토스페이먼츠 결제위젯 (테스트 키, 실제 돈이 나가지 않음) |
 | eSIM 공급 | `EsimProvider` 인터페이스 + 가짜 구현 (실제 공급사는 MVP 이후) |
-| 프론트엔드 | 미정 |
+| 프론트엔드 | React (Vite), `frontend/` 폴더 |
 | 테스트 | JUnit 5, MockMvc |
 
 ## 문서
