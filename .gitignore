@@ -1,0 +1,16 @@
+# 비밀 값
+application-local.yml
+application-local.properties
+.env
+
+# 빌드
+build/
+out/
+.gradle/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.DS_Store
