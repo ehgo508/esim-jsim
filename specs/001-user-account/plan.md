@@ -143,4 +143,6 @@ backend/
     └── test/java/com/esimtravel/user/
 ```
 
+프론트엔드는 저장소 루트의 `frontend/`(React, Vite)에 둔다. 화면 작업은 각 기능의 tasks.md에서 "프론트" 작업으로 표시한다.
+
 **Structure Decision**: 기능(도메인)별 패키지. 001~006이 각각 `user`, `plan`, `order`, `esim`, `install`, `usage` 패키지가 된다. 공통 코드는 `global`.
