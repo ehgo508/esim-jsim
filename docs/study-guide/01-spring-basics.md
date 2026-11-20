@@ -66,6 +66,20 @@ Java 문법만 아는 상태에서 "브라우저가 요청하면 JSON을 돌려�
 
 검색 키워드: `스프링 DI 생성자 주입`, `Controller Service Repository 역할`, `REST API 설계 규칙`, `Gradle 의존성 implementation`
 
+### 프론트엔드 (React + TypeScript)
+
+프론트는 React와 TypeScript로 만든다. 백엔드 팀원도 아래 정도는 알아 두면 API를 설계할 때 도움이 된다.
+
+| 주제 | 문서 |
+|------|------|
+| React 시작 | React 공식 문서 "빠르게 시작하기" https://ko.react.dev/learn |
+| TypeScript 기초 | TypeScript Handbook https://www.typescriptlang.org/docs/handbook/intro.html |
+| React에서 TypeScript 쓰기 | React 공식 문서 "TypeScript 사용하기" https://ko.react.dev/learn/typescript |
+| 프로젝트 생성 | Vite 가이드 https://ko.vite.dev/guide/ (`react-ts` 템플릿) |
+| API 호출 | MDN "Fetch API 사용하기" https://developer.mozilla.org/ko/docs/Web/API/Fetch_API/Using_Fetch |
+
+TypeScript를 쓰는 이유: API 응답의 필드 이름이나 `null` 가능 여부가 백엔드와 다르면 실행 전에 에디터가 알려준다. Java의 타입, 인터페이스, enum과 생각하는 방식이 비슷하다.
+
 ## 4. 연습 과제 (001 시작 전에)
 
 1. start.spring.io에서 Spring Web만 넣은 프로젝트를 만들고 `GET /hello`가 `{"message": "hello"}`를 응답하게 한다.

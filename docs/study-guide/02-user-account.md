@@ -82,7 +82,7 @@ DB에 데이터를 저장하고(JPA), 입력을 검증하고(Validation), 에러
 | T018 login | 이메일이 없을 때와 비밀번호가 틀릴 때 같은 예외를 던진다 |
 | T021 필터 | 필터 안에서 난 예외는 `@RestControllerAdvice`가 잡지 못한다. 그래서 T022의 `AuthenticationEntryPoint`가 따로 필요하다 |
 | T023 내 정보 | 필터에서 `SecurityContext`에 넣은 값이 Controller의 `@AuthenticationPrincipal`로 온다. 무엇을 넣을지(userId만 넣을지, 객체를 넣을지) 먼저 정한다 |
-| T003-1, T024-1 프론트 연결 | React 개발 서버(5173)와 Spring 서버(8080)는 주소가 달라 브라우저가 요청을 막는다. 이것이 CORS다. `SecurityConfig`에서 허용 주소를 등록한다. 토큰은 요청마다 `Authorization` 헤더에 붙인다 |
+| T003-1, T024-1 프론트 연결 | React 개발 서버(5173)와 Spring 서버(8080)는 주소가 달라 브라우저가 요청을 막는다. 이것이 CORS다. `SecurityConfig`에서 허용 주소를 등록한다. 토큰은 요청마다 `Authorization` 헤더에 붙인다. 응답 타입은 제네릭 `ApiResponse<T>` 하나를 만들어 두면 모든 API에 재사용할 수 있다. 백엔드의 `ApiResponse<T>`와 같은 생각이다 |
 
 ## 5. 스스로 점검할 질문
 
