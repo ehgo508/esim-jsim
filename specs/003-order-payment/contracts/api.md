@@ -23,7 +23,12 @@
 
 ## POST /api/payments/confirm
 
-프론트의 successUrl 페이지가 쿼리 파라미터를 그대로 담아 호출한다.
+프론트의 successUrl 페이지가 쿼리 파라미터 값을 담아 호출한다. 이름이 하나 다르다: 토스가 붙여 주는 쿼리 이름은 `orderId`지만, 우리 API 본문에서는 `orderNo`로 보낸다. 값은 같다 (주문 생성 때 `orderId: orderNo`로 넘겼기 때문).
+
+```text
+successUrl?paymentKey=...&orderId=ORD-...&amount=9900
+        → { paymentKey, orderNo: orderId 값, amount: 숫자로 변환 }
+```
 
 ```json
 { "paymentKey": "tgen_20261120...", "orderNo": "ORD-20261120-8f3k2a9d", "amount": 9900 }

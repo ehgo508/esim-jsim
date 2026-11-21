@@ -29,6 +29,7 @@ description: "주문과 결제 작업 목록"
 - [ ] T013 [US2] `POST /api/payments/confirm` 구현
 - [ ] T014 [US2] 통합 테스트 (`PaymentGateway`는 `@MockitoBean`): 성공, 금액 조작, 중복 승인 시 게이트웨이 1번만 호출, 결제사 실패, 타임아웃
 - [ ] T015 [US2] 간단한 프론트 페이지(결제위젯 + successUrl/failUrl 페이지)로 테스트 카드 실제 결제 해보기
+- [ ] T015-1 [US2] 프론트: 요금제 상세의 "구매" 버튼 → 주문 생성 → 결제위젯 → 결제 완료·실패 화면으로 정식 연결. successUrl 쿼리의 `orderId`는 요청 본문의 `orderNo`로 옮겨 담는다 (`contracts/api.md` 참고)
 
 ## Phase 4: User Story 3 - 결제 실패 처리 (P2)
 
@@ -39,6 +40,7 @@ description: "주문과 결제 작업 목록"
 
 - [ ] T018 [US4] `GET /api/orders`, `GET /api/orders/{orderNo}` 구현
 - [ ] T019 [US4] 통합 테스트: 최신순, 남의 주문 404
+- [ ] T019-1 [US4] 프론트 "내 주문" 목록·상세 화면
 
 ## Phase 6: Polish
 
