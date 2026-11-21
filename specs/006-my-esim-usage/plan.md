@@ -65,7 +65,8 @@ UsageResponse.of(esim, plan, snapshot, stale, now)
 ```text
 순서: ISSUED(0) < INSTALLED(1) < ACTIVE(2) < EXPIRED(3)
 
-esim.syncStatus(providerStatus)
+esim.syncStatus(providerStatus, activatedAt, expiresAt)
+  activatedAt, expiresAt 은 공급사가 값을 주면 채운다 (null 이면 그대로 둠)
   providerStatus 의 순서가 현재보다 크면 → 변경
   같거나 작으면                          → 무시 (뒤로 가지 않음)
 ```

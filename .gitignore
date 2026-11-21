@@ -14,3 +14,12 @@ out/
 *.iml
 .vscode/
 .DS_Store
+
+# 프론트엔드 (frontend/)
+node_modules/
+dist/
+.env.local
+.env.*.local
+
+# 로그
+*.log

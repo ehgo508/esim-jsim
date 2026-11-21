@@ -29,6 +29,7 @@ users     1 ──── N orders   N ──── 1 plans
 orders    1 ──── 1 payments
 orders    1 ──── N esim_issue_attempts
 orders    1 ──── 1 esims    N ──── 1 users
+plans     1 ──── N esims
 esims     1 ──── 1 esim_usage_snapshots
 ```
 

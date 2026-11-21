@@ -52,7 +52,7 @@ eSIM 공급사(Airalo 등)와 결제사(토스페이먼츠)는 바뀔 수 있고
 - 모든 API는 `/api/**` 아래에 둔다. JSON으로 주고받는다.
 - 성공 응답: `{ "success": true, "data": { ... } }`
 - 실패 응답: `{ "success": false, "error": { "code": "ORDER-3001", "message": "사용자에게 보여줄 문장" } }`
-- 에러 코드는 `도메인-번호` 형식이다. USER-1xxx, PLAN-2xxx, ORDER-3xxx, ESIM-4xxx, INSTALL-5xxx, USAGE-6xxx.
+- 에러 코드는 `도메인-번호` 형식이다. 여러 기능이 함께 쓰는 입력값 검증 실패 등은 COMMON-0xxx, 기능별로는 USER-1xxx, PLAN-2xxx, ORDER-3xxx, ESIM-4xxx, INSTALL-5xxx, USAGE-6xxx.
 - 요청 DTO와 응답 DTO는 Entity와 분리한다. Entity를 그대로 응답하지 않는다.
 - 돈은 원 단위 정수(`long`)로 다룬다. `double`을 쓰지 않는다.
 - 시간은 서버에서 UTC로 저장하고, 화면에서 한국 시간으로 보여준다.
@@ -73,4 +73,4 @@ eSIM 공급사(Airalo 등)와 결제사(토스페이먼츠)는 바뀔 수 있고
 - 이 헌법을 바꾸려면 팀원 과반이 동의하고, 아래 버전과 날짜를 갱신한다.
 - 리뷰할 때 원칙 I~V를 지켰는지 확인한다.
 
-**Version**: 1.3.0 | **Ratified**: 2026-11-20 | **Last Amended**: 2026-11-20
+**Version**: 1.3.1 | **Ratified**: 2026-11-20 | **Last Amended**: 2026-11-21

@@ -32,6 +32,9 @@ description: "국가별 요금제 조회 작업 목록"
 
 - [ ] T014 `PlanDataInitializer` 작성 (`@Profile("local")`, 데이터가 비어 있을 때만 data-model.md 예시 데이터 입력)
 - [ ] T015 로컬 실행 후 브라우저나 Postman으로 세 API 확인
+- [ ] T015-1 [P] 프론트: `contracts/api.md` 응답을 `frontend/src/api/types.ts`에 TypeScript 타입으로 옮기기
+- [ ] T015-2 프론트 "국가 목록" 화면과 "국가별 요금제" 화면 (가격순, 무제한·통화 포함 표시)
+- [ ] T015-3 프론트 "요금제 상세" 화면 (구매 버튼은 003에서 연결)
 
 ## Phase 5: Polish
 
