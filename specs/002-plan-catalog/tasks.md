@@ -20,13 +20,13 @@ description: "국가별 요금제 조회 작업 목록"
 - [ ] T007 [US1] `GET /api/countries` 구현
 - [ ] T008 [US2] `GET /api/countries/{countryCode}/plans` 구현 (소문자 코드 허용)
 - [ ] T009 [US2] `SecurityConfig`에 조회 API `permitAll` 추가
-- [ ] T010 [US2] 통합 테스트: 성공 1 (정상 목록, 로그인 없이 호출 가능) / 실패 1 (없는 국가 `PLAN-2001`) + 경계 2 (소문자 코드 `jp` 허용, 판매 중 요금제가 없는 국가는 빈 배열 200). 국가 목록 API는 실패 경우가 없으므로 경계 3 (판매 중지 요금제만 있는 국가 제외, 요금제가 없는 국가 제외, 데이터가 없으면 빈 배열)
+- [ ] T010 [US2] 통합 테스트: 성공 1 (정상 목록, 로그인 없이 호출 가능) / 실패 1 (없는 국가 `PLAN-2001`). 국가 목록 API는 실패할 경우가 없으므로 성공 1 (판매 중인 요금제가 있는 국가만 나옴)
 
 ## Phase 3: User Story 3 - 요금제 상세 (P2)
 
 - [ ] T011 [US3] `PlanDetailResponse` 작성 (`providerPackageCode` 제외 확인)
 - [ ] T012 [US3] `GET /api/plans/{planId}` 구현
-- [ ] T013 [US3] 통합 테스트: 성공 1 (정상) / 실패 3 (판매 중지 `PLAN-2002`, 없는 ID `PLAN-2002`, 숫자가 아닌 ID 400)
+- [ ] T013 [US3] 통합 테스트: 성공 1 (정상) / 실패 2 (판매 중지 `PLAN-2002`, 없는 ID `PLAN-2002`)
 
 ## Phase 4: 초기 데이터
 
