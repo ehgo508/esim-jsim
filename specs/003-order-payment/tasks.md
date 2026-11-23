@@ -17,7 +17,7 @@ description: "주문과 결제 작업 목록"
 - [ ] T004 [US1] `Order` 단위 테스트: `CREATED`가 아닐 때 `markPaid()` 호출하면 예외
 - [ ] T005 [US1] `orderNo` 생성 규칙 구현 (6~64자, 영문·숫자·`-`)
 - [ ] T006 [US1] `OrderService.create()`와 `POST /api/orders` 구현
-- [ ] T007 [US1] 통합 테스트: 주문 성공, 판매 중지 요금제, 로그인 없이 401
+- [ ] T007 [US1] 통합 테스트: 성공 1 (주문 성공) / 실패 3 (판매 중지 요금제 `PLAN-2002`, `planId` 누락 400, 로그인 없이 401)
 
 ## Phase 3: User Story 2 - 결제 승인 (P1)
 
@@ -27,19 +27,19 @@ description: "주문과 결제 작업 목록"
 - [ ] T011 [US2] `OrderRepository`에 비관적 락 조회 메서드 추가
 - [ ] T012 [US2] `PaymentService.confirm()` 구현 (plan.md 결제 승인 흐름대로)
 - [ ] T013 [US2] `POST /api/payments/confirm` 구현
-- [ ] T014 [US2] 통합 테스트 (`PaymentGateway`는 `@MockitoBean`): 성공, 금액 조작, 중복 승인 시 게이트웨이 1번만 호출, 결제사 실패, 타임아웃
+- [ ] T014 [US2] 통합 테스트 (`PaymentGateway`는 `@MockitoBean`): 성공 1 (승인 성공) / 실패 4 (금액 조작 `ORDER-3002`, 만료된 주문 `ORDER-3003`, 결제사 실패 `ORDER-3004`, 타임아웃 `ORDER-3005`) + 중복 승인 시 게이트웨이 1번만 호출
 - [ ] T015 [US2] 간단한 프론트 페이지(결제위젯 + successUrl/failUrl 페이지)로 테스트 카드 실제 결제 해보기
 - [ ] T015-1 [US2] 프론트: 요금제 상세의 "구매" 버튼 → 주문 생성 → 결제위젯 → 결제 완료·실패 화면으로 정식 연결. successUrl 쿼리의 `orderId`는 요청 본문의 `orderNo`로 옮겨 담는다 (`contracts/api.md` 참고)
 
 ## Phase 4: User Story 3 - 결제 실패 처리 (P2)
 
 - [ ] T016 [US3] `POST /api/payments/fail` 구현
-- [ ] T017 [US3] 통합 테스트: `CREATED` → `PAYMENT_FAILED`, 이미 `PAID`면 변경 안 됨
+- [ ] T017 [US3] 통합 테스트: 성공 1 (`CREATED` → `PAYMENT_FAILED`) / 실패 3 (남의 주문 `ORDER-3001`, `orderNo` 누락 400, 로그인 없이 401) + 이미 `PAID`면 변경 안 됨
 
 ## Phase 5: User Story 4 - 내 주문 조회 (P2)
 
 - [ ] T018 [US4] `GET /api/orders`, `GET /api/orders/{orderNo}` 구현
-- [ ] T019 [US4] 통합 테스트: 최신순, 남의 주문 404
+- [ ] T019 [US4] 통합 테스트: 성공 1 (목록 최신순, 상세 조회) / 실패 3 (남의 주문 `ORDER-3001`, 없는 주문번호 `ORDER-3001`, 로그인 없이 401)
 - [ ] T019-1 [US4] 프론트 "내 주문" 목록·상세 화면
 
 ## Phase 6: Polish
