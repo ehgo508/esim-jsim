@@ -21,13 +21,13 @@ description: "eSIM 설치 안내 작업 목록"
 - [ ] T008 [US1] 통합 테스트: iPhone UA → `IOS_UNIVERSAL_LINK`, 구버전 iOS → `QR_CODE`
 - [ ] T009 [US2] 통합 테스트: Android UA → `ANDROID_MANUAL`과 `manual` 값
 - [ ] T010 [US3] 통합 테스트: PC UA → `QR_CODE`, `?device=ios`가 UA보다 우선
-- [ ] T011 통합 테스트: 남의 eSIM 404, 만료 eSIM 409, 응답 헤더 `no-store`
+- [ ] T011 통합 테스트: 실패 3 (남의 eSIM `INSTALL-5001`, 만료 eSIM `INSTALL-5002`, 로그인 없이 401) + 응답 헤더 `no-store`. 성공은 T008~T010
 
 ## Phase 3: User Story 4 - 설치 완료 표시 (P2)
 
 - [ ] T012 [US4] `esims.installed_at` 추가, `esim.markInstalled()` 구현과 단위 테스트
 - [ ] T013 [US4] `POST /api/esims/{esimId}/installed` 구현
-- [ ] T014 [US4] 통합 테스트: `ISSUED` → `INSTALLED`, 두 번 눌러도 문제없음
+- [ ] T014 [US4] 통합 테스트: 성공 1 (`ISSUED` → `INSTALLED`) / 실패 3 (남의 eSIM `INSTALL-5001`, 없는 eSIM `INSTALL-5001`, 로그인 없이 401) + 두 번 눌러도 문제없음
 
 ## Phase 4: 프론트 연결
 

@@ -24,7 +24,7 @@ description: "eSIM 발급 작업 목록"
 
 - [ ] T009 [US2] 실패 시 주문 `FULFILLMENT_FAILED`, attempt `FAILED` 기록 구현
 - [ ] T010 [US2] `POST /api/orders/{orderNo}/esim/retry` 구현 (본인 주문 확인, 3회 한도)
-- [ ] T011 [US2] 통합 테스트: 실패 모드 → `FULFILLMENT_FAILED` + 결제 기록 유지, 재시도 성공, 3회 초과 `ESIM-4003`, 남의 주문 404
+- [ ] T011 [US2] 통합 테스트: 실패 모드 → `FULFILLMENT_FAILED` + 결제 기록 유지. 재시도 API는 성공 1 (재시도 성공) / 실패 4 (`FULFILLMENT_FAILED`가 아닌 주문 `ESIM-4001`, 다시 실패 `ESIM-4002`, 3회 초과 `ESIM-4003`, 남의 주문 404)
 
 ## Phase 4: User Story 3 - 공급사 교체 가능 (P2)
 

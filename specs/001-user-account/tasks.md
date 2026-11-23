@@ -33,7 +33,7 @@ description: "회원 가입과 로그인 작업 목록"
 - [ ] T012 [US1] `SecurityConfig`에 `PasswordEncoder` Bean 등록, `/api/auth/**` 허용
 - [ ] T013 [US1] `AuthService.signUp()` 구현 (plan.md 회원 가입 흐름대로)
 - [ ] T014 [US1] `AuthController` `POST /api/auth/signup` 구현
-- [ ] T015 [US1] 통합 테스트: 가입 성공, 이메일 중복, 비밀번호 규칙 위반, 대소문자만 다른 이메일 중복
+- [ ] T015 [US1] 통합 테스트: 성공 1 (가입 성공) / 실패 3 (이메일 중복, 비밀번호 규칙 위반, 대소문자만 다른 이메일 중복)
 
 ## Phase 4: User Story 2 - 로그인 (P1)
 
@@ -41,14 +41,14 @@ description: "회원 가입과 로그인 작업 목록"
 - [ ] T017 [US2] `LoginRequest`, `TokenResponse` DTO 작성
 - [ ] T018 [US2] `AuthService.login()` 구현 (실패 시 항상 `USER-1101`)
 - [ ] T019 [US2] `POST /api/auth/login` 구현
-- [ ] T020 [US2] 통합 테스트: 로그인 성공, 비밀번호 틀림, 없는 이메일 (두 실패 응답이 똑같은지)
+- [ ] T020 [US2] 통합 테스트: 성공 1 (로그인 성공) / 실패 3 (비밀번호 틀림, 없는 이메일, 이메일 또는 비밀번호 누락 400). 앞의 두 실패는 응답이 똑같은지 확인
 
 ## Phase 5: User Story 3 - 내 정보 조회 (P2)
 
 - [ ] T021 [US3] `JwtAuthenticationFilter` 작성 후 `SecurityConfig`에 등록
 - [ ] T022 [US3] 인증 실패 시 `USER-1201` JSON을 응답하는 `AuthenticationEntryPoint` 작성
 - [ ] T023 [US3] `GET /api/users/me` 구현 (`@AuthenticationPrincipal`)
-- [ ] T024 [US3] 통합 테스트: 토큰 없음 401, 잘못된 토큰 401, 정상 토큰 200
+- [ ] T024 [US3] 통합 테스트: 성공 1 (정상 토큰 200) / 실패 3 (토큰 없음 401, 서명이 틀린 토큰 401, 만료된 토큰 401)
 
 ## Phase 5-1: 프론트 연결
 

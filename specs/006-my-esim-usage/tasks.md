@@ -11,7 +11,7 @@ description: "내 eSIM 상태와 사용량 조회 작업 목록"
 - [ ] T001 [US1] `MyEsimSummaryResponse` DTO 작성 (ICCID는 뒤 4자리만)
 - [ ] T002 [US1] 목록 조회 쿼리 작성 (요금제·국가를 함께 가져와 N+1 방지, 상태 그룹 정렬)
 - [ ] T003 [US1] `GET /api/esims` 구현
-- [ ] T004 [US1] 통합 테스트: 내 것만, 정렬 순서
+- [ ] T004 [US1] 통합 테스트: 성공 1 (내 것만, 정렬 순서) / 실패 1 (로그인 없이 401) + 경계 2 (eSIM이 없으면 빈 배열, 만료 eSIM만 있어도 목록에 나옴)
 
 ## Phase 2: User Story 2 - 사용량 보기 (P1)
 
@@ -21,14 +21,14 @@ description: "내 eSIM 상태와 사용량 조회 작업 목록"
 - [ ] T008 [US2] `esim.syncStatus()` 구현과 단위 테스트 (상태가 뒤로 가지 않음)
 - [ ] T009 [US2] `UsageResponse.of()` 계산 로직과 단위 테스트: remaining 음수 방지, `daysLeft` 올림, 통화·문자 null
 - [ ] T010 [US2] `UsageSyncService`와 `GET /api/esims/{esimId}/usage` 구현 (우선 매번 공급사 호출)
-- [ ] T011 [US2] 통합 테스트: 데이터 전용, 통화 포함, 개통 전, 남의 eSIM 404
+- [ ] T011 [US2] 통합 테스트: 성공 3 (데이터 전용, 통화 포함, 개통 전) / 실패 3 (남의 eSIM `USAGE-6001`, 없는 eSIM `USAGE-6001`, 로그인 없이 401). 공급사 장애 `USAGE-6002`는 T015에서
 
 ## Phase 3: User Story 3 - 갱신 주기와 장애 대응 (P2)
 
 - [ ] T012 [US3] `Clock` Bean 등록, 서비스에서 `Instant.now(clock)` 사용
 - [ ] T013 [US3] 5분 규칙 구현
 - [ ] T014 [US3] 공급사 실패 시 스냅샷으로 응답(`stale = true`), 스냅샷 없으면 `USAGE-6002`
-- [ ] T015 [US3] 통합 테스트 (고정 `Clock`, 공급사 `@MockitoBean`): 1분 뒤 재조회는 호출 0번, 6분 뒤는 1번, 장애 시 stale, 만료 eSIM은 호출 안 함
+- [ ] T015 [US3] 통합 테스트 (고정 `Clock`, 공급사 `@MockitoBean`): 1분 뒤 재조회는 호출 0번, 6분 뒤는 1번, 장애 시 stale, 장애인데 저장 값이 없으면 `USAGE-6002`, 만료 eSIM은 호출 안 함
 
 ## Phase 4: 전체 흐름 확인
 

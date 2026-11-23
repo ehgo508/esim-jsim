@@ -41,6 +41,7 @@
 | T004 Repository 테스트 | 테스트 데이터를 직접 `save` 해서 만든다. 판매 중지 요금제만 있는 국가를 꼭 넣는다 |
 | T008 국가별 목록 | 국가가 없는 경우(404)와 국가는 있는데 요금제가 0개인 경우(빈 배열 200)를 구분한다 |
 | T011 상세 DTO | `providerPackageCode`가 응답 JSON에 없는지 테스트로 확인한다 (`jsonPath(...).doesNotExist()`) |
+| T013 숫자가 아닌 ID | `/api/plans/abc`처럼 숫자 자리에 글자가 오면 Spring은 `MethodArgumentTypeMismatchException`을 던진다. 001에서 만든 `GlobalExceptionHandler`에 이 예외를 400으로 바꾸는 처리를 추가해야 테스트가 통과한다 |
 | T014 초기 데이터 | 서버를 다시 띄울 때마다 중복으로 들어가지 않게 "비어 있을 때만" 조건을 둔다 |
 | T016 N+1 점검 | `spring.jpa.show-sql=true`로 목록 API 호출 시 SELECT가 몇 번 나가는지 센다. 상세 응답에서 `plan.getCountry().getName()`을 쓰는 순간을 지켜본다 |
 
