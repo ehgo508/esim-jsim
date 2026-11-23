@@ -2,24 +2,26 @@
 
 ## esim_usage_snapshots
 
-| 컬럼 | 타입 | 제약 | 설명 |
-|------|------|------|------|
-| id | BIGINT | PK | |
-| esim_id | BIGINT | FK → esims.id, NOT NULL, UNIQUE | eSIM당 1건 |
-| data_total_mb | INT | | 무제한이면 NULL |
-| data_used_mb | INT | NOT NULL | |
-| voice_total_min | INT | NULL 허용 | 통화 미포함이면 NULL |
-| voice_used_min | INT | NULL 허용 | |
-| sms_total | INT | NULL 허용 | 문자 미포함이면 NULL |
-| sms_used | INT | NULL 허용 | |
-| synced_at | DATETIME(6) | NOT NULL | 공급사에서 가져온 시각 |
+논리명: **eSIM 사용량 스냅샷**
+
+| 논리명 | 물리명 | 타입 | 제약 | 설명 |
+|--------|--------|------|------|------|
+| 스냅샷 ID | `id` | BIGINT | PK, AUTO_INCREMENT |  |
+| eSIM ID | `esim_id` | BIGINT | FK → esims.id, NOT NULL, UNIQUE | eSIM당 1건 |
+| 데이터 총량 | `data_total_mb` | INT | NULL 허용 | 무제한이면 NULL |
+| 데이터 사용량 | `data_used_mb` | INT | NOT NULL |  |
+| 통화 총량 | `voice_total_min` | INT | NULL 허용 | 통화 미포함이면 NULL |
+| 통화 사용량 | `voice_used_min` | INT | NULL 허용 |  |
+| 문자 총량 | `sms_total` | INT | NULL 허용 | 문자 미포함이면 NULL |
+| 문자 사용량 | `sms_used` | INT | NULL 허용 |  |
+| 동기화일시 | `synced_at` | DATETIME(6) | NOT NULL | 공급사에서 가져온 시각 |
 
 ## esims (컬럼 추가)
 
-| 컬럼 | 타입 | 설명 |
-|------|------|------|
-| activated_at | DATETIME(6) | 현지에서 처음 연결된 시각 |
-| expires_at | DATETIME(6) | 만료 시각 |
+| 논리명 | 물리명 | 타입 | 제약 | 설명 |
+|--------|--------|------|------|------|
+| 개통일시 | `activated_at` | DATETIME(6) | NULL 허용 | 현지에서 처음 연결된 시각 |
+| 만료일시 | `expires_at` | DATETIME(6) | NULL 허용 | 만료 시각 |
 
 ## 전체 ERD (MVP 완성 시점)
 

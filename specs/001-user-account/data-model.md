@@ -2,15 +2,17 @@
 
 ## users
 
-| 컬럼 | 타입 | 제약 | 설명 |
-|------|------|------|------|
-| id | BIGINT | PK, AUTO_INCREMENT | 사용자 ID |
-| email | VARCHAR(255) | NOT NULL, UNIQUE | 소문자로 저장한 이메일 |
-| password_hash | VARCHAR(100) | NOT NULL | BCrypt 결과 (60자) |
-| name | VARCHAR(30) | NOT NULL | 이름 |
-| status | VARCHAR(20) | NOT NULL | `ACTIVE` (MVP 이후 `SUSPENDED`, `WITHDRAWN`) |
-| created_at | DATETIME(6) | NOT NULL | 가입 시각 (UTC) |
-| updated_at | DATETIME(6) | NOT NULL | 수정 시각 (UTC) |
+논리명: **사용자**
+
+| 논리명 | 물리명 | 타입 | 제약 | 설명 |
+|--------|--------|------|------|------|
+| 사용자 ID | `id` | BIGINT | PK, AUTO_INCREMENT |  |
+| 이메일 | `email` | VARCHAR(255) | NOT NULL, UNIQUE | 소문자로 저장한 이메일 |
+| 비밀번호 해시 | `password_hash` | VARCHAR(100) | NOT NULL | BCrypt 결과 (60자) |
+| 이름 | `name` | VARCHAR(30) | NOT NULL |  |
+| 계정 상태 | `status` | VARCHAR(20) | NOT NULL | `ACTIVE` (MVP 이후 `SUSPENDED`, `WITHDRAWN`) |
+| 생성일시 | `created_at` | DATETIME(6) | NOT NULL | 가입 시각 (UTC) |
+| 수정일시 | `updated_at` | DATETIME(6) | NOT NULL | 수정 시각 (UTC) |
 
 ## Entity: User
 
