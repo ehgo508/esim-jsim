@@ -42,6 +42,31 @@
 | 멱등성 | 같은 요청을 여러 번 보내도 결과가 한 번 보낸 것과 같은 성질 | 중복 승인 정책 |
 | 트랜잭션과 외부 호출 | 외부 API는 롤백되지 않는다. DB가 롤백돼도 결제는 이미 승인됐을 수 있다 | 승인과 발급을 다른 트랜잭션으로 나누는 이유 |
 
+### 트랜잭션 격리 수준
+
+트랜잭션 여러 개가 동시에 돌 때, 한 트랜잭션이 다른 트랜잭션의 변경을 어디까지 보게 할지 정하는 설정이다. 격리를 느슨하게 하면 빠르지만 아래 세 가지 이상 현상이 생길 수 있다.
+
+| 현상 | 무슨 일이 생기나 | 예 |
+|------|----------------|----|
+| Dirty read | 다른 트랜잭션이 아직 커밋하지 않은 값을 읽는다. 그 트랜잭션이 롤백하면 없던 값을 읽은 셈이 된다 | A가 주문을 `PAID`로 바꾸는 중인데(커밋 전) B가 `PAID`로 읽음. A가 롤백함 |
+| Non-repeatable read | 한 트랜잭션에서 같은 행을 두 번 읽었는데 값이 달라진다. 그 사이에 다른 트랜잭션이 수정하고 커밋했기 때문이다 | A가 주문 금액을 9,900원으로 읽음 → B가 수정 후 커밋 → A가 다시 읽으니 다른 값 |
+| Phantom read | 같은 조건으로 두 번 조회했는데 행의 개수가 달라진다. 그 사이에 다른 트랜잭션이 행을 추가하거나 삭제했기 때문이다 | A가 "내 주문 목록"을 조회해 3건 → B가 주문 추가 후 커밋 → A가 다시 조회하니 4건 |
+
+Non-repeatable read는 이미 있던 행의 값이 바뀌는 것이고, Phantom read는 없던 행이 나타나거나 있던 행이 사라지는 것이다.
+
+격리 수준은 네 단계이고, 아래로 갈수록 엄격하다 (SQL 표준 기준. O는 그 현상이 생길 수 있다는 뜻).
+
+| 격리 수준 | Dirty read | Non-repeatable read | Phantom read |
+|-----------|:---:|:---:|:---:|
+| READ UNCOMMITTED | O | O | O |
+| READ COMMITTED | X | O | O |
+| REPEATABLE READ | X | X | O |
+| SERIALIZABLE | X | X | X |
+
+- MySQL(InnoDB)의 기본값은 REPEATABLE READ다. 이 프로젝트는 기본값을 그대로 쓰고 따로 설정하지 않는다.
+- InnoDB의 REPEATABLE READ는 트랜잭션이 처음 읽은 시점의 스냅샷을 계속 보여 주기 때문에, 일반 `SELECT`에서는 표준과 달리 Phantom read도 대부분 생기지 않는다.
+- 격리 수준은 "무엇을 읽게 되는가"를 정할 뿐이고, 동시 요청을 막아 주지는 않는다. 결제 승인 요청 두 개가 동시에 오면 REPEATABLE READ에서도 둘 다 주문 상태를 `CREATED`로 읽고 둘 다 승인을 진행한다. 그래서 이 프로젝트는 격리 수준을 올리지 않고 비관적 락(`SELECT ... FOR UPDATE`)과 UNIQUE 제약으로 막는다.
+
 ### 테스트
 
 | 개념 | 설명 |
@@ -59,9 +84,10 @@
 | `RestClient` | Spring Framework Reference의 "REST Clients" https://docs.spring.io/spring-framework/reference/integration/rest-clients.html |
 | 트랜잭션 | Spring Framework Reference의 "Transaction Management" https://docs.spring.io/spring-framework/reference/data-access/transaction.html |
 | JPA 락 | Spring Data JPA Reference의 "Locking" https://docs.spring.io/spring-data/jpa/reference/ |
+| 격리 수준 | MySQL Reference Manual의 "Transaction Isolation Levels" https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-isolation-levels.html |
 | 설정 값 바인딩 | Spring Boot Reference의 "Externalized Configuration" https://docs.spring.io/spring-boot/reference/features/external-config.html |
 
-검색 키워드: `토스페이먼츠 결제 승인 Spring Boot`, `@Transactional 동작 원리 프록시`, `@Transactional 같은 클래스 내부 호출`, `비관적 락 낙관적 락 차이`, `멱등성 API`, `결제 금액 검증 이유`
+검색 키워드: `토스페이먼츠 결제 승인 Spring Boot`, `@Transactional 동작 원리 프록시`, `@Transactional 같은 클래스 내부 호출`, `비관적 락 낙관적 락 차이`, `트랜잭션 격리 수준 dirty read phantom read`, `MySQL REPEATABLE READ MVCC`, `멱등성 API`, `결제 금액 검증 이유`
 
 주의: 토스페이먼츠 API의 정확한 필드 이름과 응답 형식은 반드시 개발자센터의 현재 문서를 기준으로 한다. 명세의 예시는 구조를 설명하기 위한 것이다.
 
@@ -89,6 +115,8 @@
 - 토스 승인은 성공했는데 그 직후 우리 DB 저장이 실패하면 어떤 상태가 되는가? 어떻게 알아챌 수 있는가?
 - 결제 승인과 eSIM 발급을 같은 `@Transactional` 안에 넣으면 왜 위험한가?
 - 비관적 락 없이 UNIQUE 제약만으로 중복 승인을 막으면 무엇이 달라지는가?
+- Non-repeatable read와 Phantom read의 차이를 예를 들어 설명해 보라.
+- 격리 수준을 SERIALIZABLE로 올리지 않고 락으로 중복 승인을 막는 이유는?
 - 타임아웃이 났을 때 주문을 `PAYMENT_FAILED`로 바꾸지 않는 이유는?
 
 ## 6. 흔한 실수
