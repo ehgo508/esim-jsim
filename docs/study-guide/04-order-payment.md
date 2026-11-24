@@ -67,6 +67,32 @@ Non-repeatable read는 이미 있던 행의 값이 바뀌는 것이고, Phantom 
 - InnoDB의 REPEATABLE READ는 트랜잭션이 처음 읽은 시점의 스냅샷을 계속 보여 주기 때문에, 일반 `SELECT`에서는 표준과 달리 Phantom read도 대부분 생기지 않는다.
 - 격리 수준은 "무엇을 읽게 되는가"를 정할 뿐이고, 동시 요청을 막아 주지는 않는다. 결제 승인 요청 두 개가 동시에 오면 REPEATABLE READ에서도 둘 다 주문 상태를 `CREATED`로 읽고 둘 다 승인을 진행한다. 그래서 이 프로젝트는 격리 수준을 올리지 않고 비관적 락(`SELECT ... FOR UPDATE`)과 UNIQUE 제약으로 막는다.
 
+### 재고가 1개 남았는데 주문이 동시에 들어오면
+
+이 프로젝트의 `plans` 테이블에는 재고 컬럼이 없다. eSIM은 공급사가 발급하고, 재고가 없으면 공급사가 `OUT_OF_STOCK`으로 알려 준다 (004). 그래도 쇼핑몰이나 한정 수량 이벤트에서 꼭 만나는 문제이고, 우리의 중복 결제 승인과 원리가 같아서 정리해 둔다.
+
+문제는 "읽기 → 확인 → 차감" 사이에 다른 요청이 끼어드는 것이다.
+
+| 순서 | 요청 A | 요청 B |
+|------|--------|--------|
+| 1 | 재고를 읽음: 1 | |
+| 2 | | 재고를 읽음: 1 |
+| 3 | 1 이상이니 주문 가능. 재고를 0으로 저장 | |
+| 4 | | 1 이상이니 주문 가능. 재고를 0으로 저장 |
+
+재고는 1개였는데 주문은 2건이 된다. A의 차감이 B의 저장에 덮여 사라졌다고 해서 갱신 손실(lost update)이라고 부른다. 둘 다 커밋된 값을 읽었으므로 격리 수준이 REPEATABLE READ여도 막히지 않는다.
+
+해결 방법은 네 가지다.
+
+| 방법 | 어떻게 막나 | 장점 | 단점 |
+|------|------------|------|------|
+| 조건부 UPDATE | 읽지 않고 `UPDATE ... SET stock = stock - 1 WHERE id = ? AND stock > 0` 한 문장으로 확인과 차감을 같이 한다. 바뀐 행 수가 0이면 품절이다 | 가장 단순하고 빠르다 | 차감 전에 복잡한 검사가 필요하면 쓰기 어렵다 |
+| 비관적 락 | 재고를 읽을 때 행을 잠근다 (`SELECT ... FOR UPDATE`, JPA는 `@Lock(PESSIMISTIC_WRITE)`). B는 A가 끝날 때까지 기다렸다가 0을 읽는다 | 확실하다. 읽은 뒤 여러 검사를 할 수 있다 | 기다리는 요청이 쌓인다. 락 순서가 엇갈리면 교착 상태(deadlock)가 생긴다 |
+| 낙관적 락 | `version` 컬럼을 두고, 저장할 때 내가 읽은 버전과 같은지 확인한다 (JPA `@Version`). 다르면 나중 요청이 실패한다 | 락을 잡지 않아 충돌이 드물 때 빠르다 | 실패한 요청을 다시 시도하는 코드가 필요하다. 충돌이 잦으면 실패가 쏟아진다 |
+| 분산 락, 대기열 | DB 밖에서 줄을 세운다 (Redis 락, 메시지 큐) | 서버와 DB가 여러 대이고 요청이 몰려도 버틴다 | 관리할 시스템이 늘어난다. 이 프로젝트 범위를 넘는다 |
+
+고르는 기준: 숫자 하나만 줄이면 되면 조건부 UPDATE, 읽은 뒤 판단할 것이 많으면 비관적 락, 충돌이 드물면 낙관적 락이다. 이 프로젝트의 결제 승인은 주문 상태를 읽고 금액 검증과 결제사 호출까지 해야 해서 비관적 락을 쓴다.
+
 ### 테스트
 
 | 개념 | 설명 |
@@ -87,7 +113,7 @@ Non-repeatable read는 이미 있던 행의 값이 바뀌는 것이고, Phantom 
 | 격리 수준 | MySQL Reference Manual의 "Transaction Isolation Levels" https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-isolation-levels.html |
 | 설정 값 바인딩 | Spring Boot Reference의 "Externalized Configuration" https://docs.spring.io/spring-boot/reference/features/external-config.html |
 
-검색 키워드: `토스페이먼츠 결제 승인 Spring Boot`, `@Transactional 동작 원리 프록시`, `@Transactional 같은 클래스 내부 호출`, `비관적 락 낙관적 락 차이`, `트랜잭션 격리 수준 dirty read phantom read`, `MySQL REPEATABLE READ MVCC`, `멱등성 API`, `결제 금액 검증 이유`
+검색 키워드: `토스페이먼츠 결제 승인 Spring Boot`, `@Transactional 동작 원리 프록시`, `@Transactional 같은 클래스 내부 호출`, `비관적 락 낙관적 락 차이`, `트랜잭션 격리 수준 dirty read phantom read`, `MySQL REPEATABLE READ MVCC`, `재고 차감 동시성`, `lost update 갱신 손실`, `멱등성 API`, `결제 금액 검증 이유`
 
 주의: 토스페이먼츠 API의 정확한 필드 이름과 응답 형식은 반드시 개발자센터의 현재 문서를 기준으로 한다. 명세의 예시는 구조를 설명하기 위한 것이다.
 
@@ -117,6 +143,7 @@ Non-repeatable read는 이미 있던 행의 값이 바뀌는 것이고, Phantom 
 - 비관적 락 없이 UNIQUE 제약만으로 중복 승인을 막으면 무엇이 달라지는가?
 - Non-repeatable read와 Phantom read의 차이를 예를 들어 설명해 보라.
 - 격리 수준을 SERIALIZABLE로 올리지 않고 락으로 중복 승인을 막는 이유는?
+- 재고 차감을 "읽고, 확인하고, 저장"하는 코드로 짜면 어떤 순서에서 초과 판매가 생기는가? 조건부 UPDATE는 왜 안전한가?
 - 타임아웃이 났을 때 주문을 `PAYMENT_FAILED`로 바꾸지 않는 이유는?
 
 ## 6. 흔한 실수
