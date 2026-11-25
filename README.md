@@ -42,6 +42,12 @@ MVP 이후: 출국일 알림, 데이터 충전, 실제 공급사 연동, 모바�
 | 프론트엔드 | React, TypeScript (Vite), `frontend/` 폴더 |
 | 테스트 | JUnit 5, MockMvc |
 
+## ERD
+
+테이블 8개, 관계 9개입니다. 컬럼 정의의 기준은 각 기능의 `data-model.md`입니다.
+
+![이심전심 ERD](docs/erd.png)
+
 ## 문서
 
 | 문서 | 내용 |
@@ -50,6 +56,7 @@ MVP 이후: 출국일 알림, 데이터 충전, 실제 공급사 연동, 모바�
 | [기능별 공부 가이드 (PDF)](docs/study-guide.pdf) | Spring 기초부터 기능별 개념, 공식 문서, 구현 힌트, 점검 질문 |
 | [프로젝트 원칙](.specify/memory/constitution.md) | 프로젝트 규칙, 기술 스택, API 공통 규칙 |
 | [공부 가이드 원본](docs/study-guide/) | 장별 마크다운 |
+| [ERD 이미지](docs/erd.png), [ERD SQL](docs/erd.sql) | 테이블 8개와 관계 9개. ERDCloud에서 직접 그린 것 |
 
 ### 명세 읽는 순서
 
