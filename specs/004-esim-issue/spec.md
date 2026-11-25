@@ -133,5 +133,5 @@ ISSUED (발급됨, 설치 전) ──▶ INSTALLED (설치됨) ──▶ ACTIVE 
 
 ## Assumptions
 
-- MVP는 가짜 공급사만 구현한다. 실제 공급사 후보는 Airalo Partner API(샌드박스 제공), eSIM Access(최소 주문량 없음)이며, 계약은 팀이 따로 결정한다.
+- MVP는 가짜 공급사만 구현한다. 실제 공급사 후보는 Airalo Partner API(샌드박스 제공), eSIM Access(최소 주문량 없음)이며, 계약은 나중에 따로 결정한다.
 - 실제 공급사 API도 대체로 "상품 코드로 주문 → ICCID와 활성화 코드 응답" 구조라서 인터페이스가 맞을 것으로 가정한다. 연동 시 공급사 문서로 다시 확인한다.

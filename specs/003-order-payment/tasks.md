@@ -45,4 +45,4 @@ description: "주문과 결제 작업 목록"
 ## Phase 6: Polish
 
 - [ ] T020 로그에 시크릿 키, 카드 정보가 없는지 확인
-- [ ] T021 코드 리뷰 후 PR로 `develop`에 합치기. 기능이 안정되면 `develop`을 `main`에 합치기
+- [ ] T021 PR을 올려 스스로 점검한 뒤 `develop`에 합치기. 기능이 안정되면 `develop`을 `main`에 합치기

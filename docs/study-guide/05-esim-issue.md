@@ -54,7 +54,7 @@ eSIM이 실제로 무엇인지(도메인 지식), 그리고 "아직 계약하지
 
 검색 키워드: `eSIM SM-DP+ LPA 설명`, `eSIM 활성화 코드 형식`, `스프링 인터페이스 구현체 여러 개 주입`, `@ConditionalOnProperty matchIfMissing`, `TransactionTemplate 사용법`, `외부 API 호출 트랜잭션 분리`
 
-읽기 과제: Airalo 문서에서 "주문 요청에 무엇을 보내고 응답으로 무엇을 받는지"를 찾아 우리 `EsimProvider.order()`의 입력·출력과 비교해 본다. 빠진 것이 있으면 인터페이스를 어떻게 바꿀지 팀과 이야기한다.
+읽기 과제: Airalo 문서에서 "주문 요청에 무엇을 보내고 응답으로 무엇을 받는지"를 찾아 우리 `EsimProvider.order()`의 입력·출력과 비교해 본다. 빠진 것이 있으면 인터페이스를 어떻게 바꿀지 적어 본다.
 
 ## 4. 구현 순서와 힌트
 

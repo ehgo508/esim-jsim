@@ -39,4 +39,4 @@ description: "국가별 요금제 조회 작업 목록"
 ## Phase 5: Polish
 
 - [ ] T016 목록 조회 시 실행되는 SQL을 로그로 확인하고, N+1 문제(요금제마다 국가를 다시 조회)가 없는지 점검
-- [ ] T017 코드 리뷰 후 PR로 `develop`에 합치기. 기능이 안정되면 `develop`을 `main`에 합치기
+- [ ] T017 PR을 올려 스스로 점검한 뒤 `develop`에 합치기. 기능이 안정되면 `develop`을 `main`에 합치기

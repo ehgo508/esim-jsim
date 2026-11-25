@@ -59,7 +59,7 @@ description: "회원 가입과 로그인 작업 목록"
 ## Phase 6: Polish
 
 - [ ] T025 로그에 비밀번호, 토큰 전체가 찍히지 않는지 확인
-- [ ] T026 팀원 코드 리뷰 후 PR로 `develop`에 합치기. 기능이 안정되면 `develop`을 `main`에 합치기
+- [ ] T026 PR을 올려 스스로 점검한 뒤 `develop`에 합치기. 기능이 안정되면 `develop`을 `main`에 합치기
 
 ## Dependencies
 

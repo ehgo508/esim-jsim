@@ -34,4 +34,4 @@ description: "eSIM 발급 작업 목록"
 ## Phase 5: Polish
 
 - [ ] T014 로그 점검: 매칭 ID와 활성화 코드 전체가 없는지, ICCID는 뒤 4자리만인지
-- [ ] T015 코드 리뷰 후 PR로 `develop`에 합치기. 기능이 안정되면 `develop`을 `main`에 합치기
+- [ ] T015 PR을 올려 스스로 점검한 뒤 `develop`에 합치기. 기능이 안정되면 `develop`을 `main`에 합치기

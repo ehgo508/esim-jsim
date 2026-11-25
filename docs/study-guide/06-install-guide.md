@@ -54,7 +54,7 @@
 
 검색 키워드: `iOS 17.4 eSIM universal link`, `Android carrier privileges eSIM`, `iPhone User-Agent 예시`, `Java URLEncoder UTF-8`, `ResponseEntity 헤더 추가`
 
-실습 과제: 팀원 각자의 폰에서 설정 앱을 열어 eSIM 추가 화면까지 가는 경로를 적어 본다. 기종마다 메뉴 이름이 얼마나 다른지 확인하고, 안내 문구에 반영한다.
+실습 과제: 내 폰과 주변 사람 폰 한두 대에서 설정 앱을 열어 eSIM 추가 화면까지 가는 경로를 적어 본다. 기종마다 메뉴 이름이 얼마나 다른지 확인하고, 안내 문구에 반영한다.
 
 ## 4. 구현 순서와 힌트
 
