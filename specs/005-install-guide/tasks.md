@@ -37,4 +37,4 @@ description: "eSIM 설치 안내 작업 목록"
 ## Phase 5: Polish
 
 - [ ] T017 로그에 활성화 코드가 없는지 확인
-- [ ] T018 코드 리뷰 후 PR로 `develop`에 합치기. 기능이 안정되면 `develop`을 `main`에 합치기
+- [ ] T018 PR을 올려 스스로 점검한 뒤 `develop`에 합치기. 기능이 안정되면 `develop`을 `main`에 합치기

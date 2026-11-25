@@ -68,7 +68,7 @@ Java 문법만 아는 상태에서 "브라우저가 요청하면 JSON을 돌려�
 
 ### 프론트엔드 (React + TypeScript)
 
-프론트는 React와 TypeScript로 만든다. 백엔드 팀원도 아래 정도는 알아 두면 API를 설계할 때 도움이 된다.
+프론트는 React와 TypeScript로 만든다. 백엔드를 만들 때도 아래 정도는 알아 두면 API를 설계할 때 도움이 된다.
 
 | 주제 | 문서 |
 |------|------|
@@ -86,7 +86,7 @@ TypeScript를 쓰는 이유: API 응답의 필드 이름이나 `null` 가능 여
 2. `GET /hello?name=진행`이 `{"message": "hello 진행"}`을 응답하게 한다. (`@RequestParam`)
 3. `POST /echo`에 JSON을 보내면 그대로 돌려주게 한다. (`@RequestBody`, DTO 클래스)
 4. 인사말을 만드는 로직을 `GreetingService`로 옮기고 Controller가 생성자로 주입받게 한다.
-5. 팀원 각자 브랜치를 만들어 PR을 올리고 서로 리뷰해 본다.
+5. 브랜치를 만들어 PR을 올리고, 바뀐 내용을 스스로 점검한 뒤 합쳐 본다.
 
 ## 5. 스스로 점검할 질문
 

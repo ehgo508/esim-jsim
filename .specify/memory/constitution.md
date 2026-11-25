@@ -5,8 +5,8 @@
 ## Core Principles
 
 ### I. 사람이 직접 구현한다 (NON-NEGOTIABLE)
-이 프로젝트는 팀원들이 Spring을 배우면서 만드는 학습 프로젝트다.
-- 구현 코드는 팀원이 직접 작성한다. `/speckit-implement`는 사용하지 않는다.
+이 프로젝트는 Spring을 배우면서 혼자 만드는 학습 프로젝트다.
+- 구현 코드는 직접 작성한다. `/speckit-implement`는 사용하지 않는다.
 - AI 도구는 명세 작성, 설계 검토, 개념 설명, 힌트, 코드 리뷰에만 쓴다. 완성 코드를 붙여 넣지 않는다.
 - `tasks.md`는 사람이 체크하며 진행하는 할 일 목록이다.
 
@@ -37,7 +37,7 @@ eSIM 공급사(Airalo 등)와 결제사(토스페이먼츠)는 바뀔 수 있고
 
 | 영역 | 선택 | 이유 |
 |------|------|------|
-| 언어 | Java 21 | 팀원 모두 Java 문법을 앎. LTS 버전 |
+| 언어 | Java 21 | Java 문법을 알고 있음. LTS 버전 |
 | 프레임워크 | Spring Boot 3.x | 국내 자료가 많고, 참고 문서(WeaveWay)와 같은 스택 |
 | 빌드 | Gradle | Spring Initializr 기본값 |
 | DB | MySQL 8 (로컬은 Docker), 테스트는 H2 | 가장 흔한 조합 |
@@ -66,12 +66,12 @@ eSIM 공급사(Airalo 등)와 결제사(토스페이먼츠)는 바뀔 수 있고
 - 브랜치는 세 종류다.
   - `main`: 항상 돌아가는 완성본. 기능이 끝나고 테스트가 통과했을 때만 `develop`에서 합친다. 직접 커밋하지 않는다.
   - `develop`: 개발 중인 코드가 모이는 곳. 기능 브랜치를 Pull Request로 합친다.
-  - 기능 브랜치: `develop`에서 딴다 (예: `001-user-account`). 팀원 1명 이상이 리뷰한 뒤 `develop`에 합친다.
+  - 기능 브랜치: `develop`에서 딴다 (예: `001-user-account`). Pull Request를 올려 바뀐 내용을 스스로 점검한 뒤 `develop`에 합친다. AI 코드 리뷰를 받아도 된다.
 - 구현 중 명세가 바뀌면 코드보다 문서를 먼저 고친다.
 
 ## Governance
 
-- 이 헌법을 바꾸려면 팀원 과반이 동의하고, 아래 버전과 날짜를 갱신한다.
-- 리뷰할 때 원칙 I~V를 지켰는지 확인한다.
+- 이 헌법을 바꿀 때는 바꾸는 이유를 Pull Request에 적고, 아래 버전과 날짜를 갱신한다.
+- Pull Request를 합치기 전에 원칙 I~V를 지켰는지 확인한다.
 
-**Version**: 1.4.1 | **Ratified**: 2026-11-20 | **Last Amended**: 2026-11-23
+**Version**: 1.5.0 | **Ratified**: 2026-11-20 | **Last Amended**: 2026-11-25

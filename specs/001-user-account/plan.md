@@ -24,13 +24,13 @@
 
 **Constraints**: 비밀번호 원문과 토큰 서명 키를 로그·Git에 남기지 않음
 
-**Scale/Scope**: 팀원과 지인 수준 (수십 명)
+**Scale/Scope**: 본인과 지인 수준 (수십 명)
 
 ## Constitution Check
 
 | 원칙 | 확인 |
 |------|------|
-| I. 사람이 직접 구현 | tasks.md의 작업을 팀원이 직접 구현 |
+| I. 사람이 직접 구현 | tasks.md의 작업을 직접 구현 |
 | II. MVP First | 이메일 인증, 소셜 로그인, Refresh Token 제외 |
 | III. 외부 시스템 분리 | 해당 없음 |
 | IV. 테스트 | 가입·로그인·내 정보 각각 성공 1개, 실패 3개 이상 통합 테스트 |
